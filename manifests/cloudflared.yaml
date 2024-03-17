@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
         - name: cloudflared
-          image: cloudflare/cloudflared:latest
+          image: ghcr.io/maa123/k8stunnel:latest
           env:
-            - name: CLOUDFLARED_TUNNEL_TOKEN
+            - name: TUNNEL_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: cloudflared
