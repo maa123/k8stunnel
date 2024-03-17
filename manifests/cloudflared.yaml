@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cloudflared
+spec:
+  replicas: 1 # 3
+  selector:
+    matchLabels:
+      app: cloudflared
+  template:
+    metadata:
+      labels:
+        app: cloudflared
+      annotations:
+        scheduler.alpha.kubernetes.io/tolerations: '[{"key": "cloudflared-taint", "operator": "Equal", "value": "true", "effect": "NoSchedule"}]'
+    spec:
+      containers:
+        - name: cloudflared
+          image: cloudflare/cloudflared:latest
+          env:
+            - name: CLOUDFLARED_TUNNEL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: cloudflared
+                  key: tunnel-token
+          command: ["/cloudflared", "tunnel", "run", "--token", "$(CLOUDFLARED_TUNNEL_TOKEN)"]
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: cloudflared-pdb
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: cloudflared
