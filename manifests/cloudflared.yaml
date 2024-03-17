@@ -15,7 +15,7 @@ spec:
         scheduler.alpha.kubernetes.io/tolerations: '[{"key": "cloudflared-taint", "operator": "Equal", "value": "true", "effect": "NoSchedule"}]'
     spec:
       containers:
-        - name: cloudflared
+        - name: k8stunnel
           image: ghcr.io/maa123/k8stunnel:latest
           env:
             - name: TUNNEL_TOKEN
