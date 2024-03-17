@@ -21,9 +21,8 @@ spec:
             - name: TUNNEL_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: cloudflared
+                  name: cloudflared-secret
                   key: tunnel-token
-          command: ["/cloudflared", "tunnel", "run", "--token", "$(CLOUDFLARED_TUNNEL_TOKEN)"]
 ---
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
