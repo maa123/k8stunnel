@@ -1,4 +1,6 @@
-FROM cloudflare/cloudflared:latest
+#FROM cloudflare/cloudflared:latest
+
+FROM alpine:latest
 
 ENV TUNNEL_TOKEN=""
 
