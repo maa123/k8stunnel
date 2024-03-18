@@ -1,10 +1,6 @@
-FROM alpine:latest
-#FROM cloudflare/cloudflared:latest
+FROM cloudflare/cloudflared:latest
 
 ENV TUNNEL_TOKEN=""
 
-#ENTRYPOINT [ "cloudflared", "--no-autoupdate" ]
-#CMD ["tunnel", "run", "--token", "$TUNNEL_TOKEN"]
-
-ENTRYPOINT [ "echo" ]
-CMD ["$TUNNEL_TOKEN"]
+ENTRYPOINT [ "/bin/sh" ]
+CMD [ "-c", "cloudflared tunnel run --no-autoupdate --token ${TUNNEL_TOKEN}" ]
